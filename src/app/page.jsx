@@ -1,5 +1,6 @@
+"use client"
 import React, { useRef, useEffect, useState } from 'react';
-import * as tf from 'tensorflow';
+import * as tf from '@tensorflow/tfjs';
 const PoseDetector = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -93,7 +94,7 @@ const PoseDetector = () => {
       // Get video frame as tensor
       const videoFrame = tf.browser.fromPixels(video);
       const resizedFrame = tf.image.resizeBilinear(videoFrame, [192, 192]);
-      const input = tf.expandDims(resizedFrame, 0);
+      const input = tf.expandDims(resizedFrame.toInt(), 0);
       
       // Get pose prediction
       const result = await model.predict(input);
